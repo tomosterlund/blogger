@@ -1,0 +1,17 @@
+<header>
+    <h1>blogger</h1>
+    <nav>
+        <ul>
+            <% if (!user) { %>
+            <li><a href="/">Home</a></li>
+            <li><a href="/registration">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <% } %>
+            <% if (user) { %>
+            <li><a href="/profile/<%= user._id %>">Profile</a></li>
+            <li><a href="/add-post">Add new post</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <% } %>
+        </ul>
+    </nav>
+</header>

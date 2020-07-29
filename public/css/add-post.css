@@ -1,0 +1,155 @@
+div.add-post__container {
+  background-color: #6a95f7;
+  width: 100%;
+  color: white;
+  height: auto;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+div.add-post__container input:-webkit-autofill,
+div.add-post__container input:-webkit-autofill:hover,
+div.add-post__container input:-webkit-autofill:focus,
+div.add-post__container input:-webkit-autofill:active {
+  color: white;
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0 30px #6a95f7 inset !important;
+  -webkit-text-: white inset !important;
+  -webkit-background-color: #6a95f7;
+}
+
+form {
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 450px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+form h2 {
+  margin: 10px 0px 0px 0px;
+  padding: 0;
+}
+
+form .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+form .input-container label {
+  margin: 5px 0px 3px 0px;
+  color: transparent;
+}
+
+form .input-container .form-control {
+  background-color: #6a95f7;
+  color: white;
+  font-size: 15px;
+  padding: 0.5rem;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+form .input-container .form-control::-webkit-input-placeholder {
+  color: snow;
+}
+
+form .input-container .form-control:-ms-input-placeholder {
+  color: snow;
+}
+
+form .input-container .form-control::-ms-input-placeholder {
+  color: snow;
+}
+
+form .input-container .form-control::placeholder {
+  color: snow;
+}
+
+form .btn {
+  padding: 0.5rem;
+  background-color: white;
+  color: #6a95f7;
+  border: 1px solid white;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 70px 0px 10px 0px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+form .btnAddPost:hover {
+  -webkit-animation: btnAddPost;
+          animation: btnAddPost;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  outline: none;
+}
+
+@-webkit-keyframes btnAddPost {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: #6a95f7;
+    color: white;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    border: 1px solid white;
+  }
+}
+
+@keyframes btnAddPost {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: #6a95f7;
+    color: white;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    border: 1px solid white;
+  }
+}
+
+#editor {
+  background-color: white;
+  color: black;
+}
+
+.editor-container {
+  background-color: white;
+}
+/*# sourceMappingURL=add-post.css.map */

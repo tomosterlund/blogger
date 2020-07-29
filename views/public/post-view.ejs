@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="colored-container__posts-view"></div>
+        <div class="user-presentation__for-post">
+            <div class="userImage__for-post" style="background-image: url('<%= profileUser.imageUrl %>')"></div>
+            <div class="post-details__text-container">
+                <h2><%= post.header %></h2>
+                <h3 class="post__time-stamp"><%= post.timeStamp %></h3>
+                <p class="post__author-name">by: <%= profileUser.name %></p>
+            </div>
+        </div>
+        <div class="post-content__container">
+            <div class="social-icons__container">
+                <a href="/posts/<%= post._id %>"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                <a href="/posts/<%= post._id %>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="/posts/<%= post._id %>"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </div>
+            <%- post.content %>
+            <% if (!user) { %>
+            <hr>
+            <p class="loginToComment">Sign in to comment on this post</p>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>
+
+<script>
+    let hiddenStuff = document.querySelector('.ql-tooltip');
+    hiddenStuff.style.display = 'none';
+    let hiddenStuffTwo = document.querySelector('.ql-clipboard');
+    hiddenStuffTwo.style.display = 'none';
+    let qlEditor = document.querySelector('.ql-editor');
+    qlEditor.setAttribute('contenteditable', 'false');
+    hiddenStuffTwo.setAttribute('contenteditable', 'false');
+    qlEditor.classList.remove('ql-editor');
+    hiddenStuffTwo.classList.remove('ql-clipboard');
+</script>
