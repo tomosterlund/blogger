@@ -11,6 +11,14 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
+    postAuthor: {
+        type: String,
+        required: true
+    },
+    authorImage: {
+        type: String,
+        required: true
+    },
     header: {
         type: String,
         required: true

@@ -1,23 +1,19 @@
-const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
 const Post = require('./../models/Post');
 const { body, validationResult } = require('express-validator');
 
-router.get('/', (req, res) => {
+exports.getIndex = (req, res) => {
     res.render('public/index', {
         user: req.session.user
     });
-})
+}
 
-//SIGNING IN AND OUT
-router.get('/login', (req, res) => {
-    res.render('public/login', {
-        user: false
-    });
-})
+exports.getLogin = (req, res) => {
+    res.render('public/login');
+}
 
-router.post('/login', (req, res) => {
+exports.postLogin = (req, res) => {
     User.findOne({ email: req.body.email })
         .then(userDoc => {
             if (!userDoc) {
@@ -34,32 +30,30 @@ router.post('/login', (req, res) => {
                 .catch(error => res.redirect('/login'))
         })
         .catch(error => console.log(error));
-})
+}
 
-router.get('/logout', (req, res) => {
+exports.postLogout = (req, res) => {
     req.session.destroy(error => {
         console.log(error);
         res.redirect('/');
     })
-})
+}
 
-//VIEWING PROFILE
-router.get('/profile/:profileId', (req, res) => {
+exports.getProfile = (req, res) => {
     User.findById(req.params.profileId)
         .then(result => {
             Post.find({ postId: result._id }).sort({ createdAt: -1 })
                 .then(posts => {
                     res.render('public/profile.ejs', {
-                        user: req.session.user || false,
                         profileUser: result,
-                        sortedPosts: posts
+                        sortedPosts: posts,
                     })
                 })
         })
         .catch(error => console.log(error));
-})
+}
 
-router.get('/posts/:postId', (req, res) => {
+exports.getPost = (req, res) => {
     Post.findById(req.params.postId)
         .then(result => {
             User.findById(result.postId)
@@ -71,23 +65,23 @@ router.get('/posts/:postId', (req, res) => {
                     });
                 })
         })
-})
+}
 
-//REGISTRATION
-router.get('/registration', (req, res) => {
+exports.getRegistration = (req, res) => {
     res.render('public/registration', {
-        user: false,
         validationErrors: false
     });
-})
+}
 
-router.post('/add-user', [
+exports.postValidation = [
     //FORM VALIDATION
     body('name').not().isEmpty(),
     body('email').isEmail(),
     body('password').isLength({ min: 5 })
-    ],
-    (req, res) => {
+    ];
+
+exports.postRegistration = (req, res) => {
+    console.log('works here');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         let errorsArray = []
@@ -101,7 +95,6 @@ router.post('/add-user', [
         }
         return res.render('public/registration', { 
             validationErrors: errorsArray,
-            user: false
         });
     }
     User.findOne({ email: req.body.email })
@@ -110,7 +103,6 @@ router.post('/add-user', [
                 let errorsArray = [];
                 errorsArray.push('A user with this e-mail address already exists');
                 return res.render('public/registration', {
-                    user: false,
                     validationErrors: errorsArray
                 })
             }
@@ -131,53 +123,13 @@ router.post('/add-user', [
                     .catch(error => console.log(error));
             })
         })
-    });
-
-router.get('/add-post', (req, res) => {
-    res.render('members/add-post', {
-        user: req.session.user
-    })
-})
-
-const getDate = () => {
-    let d = new Date();
-    let date = d.getDate();
-    let month = d.getMonth();
-    let monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let year = d.getFullYear();
-    let hour = d.getHours();
-    let min = d.getMinutes();
-
-    if(hour < 10) {hour = `0${hour}`};
-    if(min < 10) {min = `0${min}`};
-
-    return fullDate = `${date} ${monthsArr[month]} ${year} - ${hour}:${min}`;
-}
-
-router.post('/add-post', (req, res) => {
-    getDate();
-
-    User.findById(req.session.user._id)
-        .then(result => {
-            const newPost = new Post({
-                postId: result._id,
-                timeStamp: fullDate,
-                header: req.body.header,
-                content: req.body.content
-            })
-            newPost.save();
-            console.log(newPost);
-            result.name = result.name;
-            result.email = result.email;
-            result.password = result.password;
-            result.imageUrl = result.imageUrl;
-            result.posts.items.push(newPost);
-            result.save()
-                .then(() => {
-                    res.redirect('/add-post');
-                })
-                .catch(error => console.log(error));
+    }
+exports.getLatestPosts = (req, res) => {
+    Post.find().sort({ createdAt: -1 })
+        .then(postsCollection => {
+            res.render('public/latest-posts', {
+                posts: postsCollection
+            });
         })
-})
-
-module.exports = router;
+        .catch(error => console.log(error));
+}

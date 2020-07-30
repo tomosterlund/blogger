@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/latest-posts.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="blog-posts__container">
+                <% for (let post of posts) { %>
+                    <a class="post-link" href="/posts/<%= post._id %>">
+                        <div class="post-container">
+                            <div class="header-block">
+                                <div class="authorImage" style="background-image:url('<%= post.authorImage %>')"></div>
+                                <h4><%= post.postAuthor %></h4>
+                            </div>
+                            <div class="colored-block"><%= post.header %></div>
+                        </div>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

@@ -1,0 +1,32 @@
+.side-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0px 0px 0px 0px;
+}
+
+.side-nav ul a {
+  margin: 10px 0px 10px 10px;
+  text-decoration: none;
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.3rem;
+  border-bottom: 1px solid #beb8b8;
+}
+
+.side-nav ul a:hover {
+  color: #ff9769;
+}
+
+.side-nav ul a i {
+  margin: 4px 5px 0px 0px;
+}
+
+.margin-top {
+  margin-top: 40px;
+}
+/*# sourceMappingURL=side-navigation.css.map */

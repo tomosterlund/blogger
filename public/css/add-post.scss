@@ -6,6 +6,7 @@ $blue: rgb(106, 149, 247);
 $blak: rgb(29, 29, 31);
 
 div.add-post__container {
+    margin-top: 40px;
     background-color: $blue;
     width: 100%;
     color: white;
@@ -66,21 +67,40 @@ form {
     .btn {
         padding: 0.5rem;
         background-color: white;
-        color: $blue;
         border: 1px solid white;
         font-weight: 700;
         font-size: 16px;
-        margin: 70px 0px 10px 0px;
         border-radius: 3px;
         cursor: pointer;
     }
     .btnAddPost {
+        color: $blue;
         &:hover {
             animation: btnAddPost;
             animation-duration: 0.2s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
             outline: none;
+        }
+    }
+    .button-container {
+        display: flex;
+        align-items: center;
+        margin-top: 70px;
+        a {
+            text-decoration: none;
+            .btnDeletePost {
+                margin-left: 30px;
+                padding: 0.42rem;
+                color: red;
+                &:hover {
+                    animation: btnDeletePost;
+                    animation-duration: 0.2s;
+                    animation-iteration-count: 1;
+                    animation-fill-mode: forwards;
+                    outline: none;
+                }
+            }
         }
     }
 
@@ -92,7 +112,17 @@ form {
     100% {
         background-color: $blue;
         color: white;
+        // transform: scale(1.2);
+        border: 1px solid white;
+    }
+}
+
+@keyframes btnDeletePost {
+    0% {background-color: white; transform: scale(1.0);}
+    100% {
         transform: scale(1.2);
+        background-color: red;
+        color: white;
         border: 1px solid white;
     }
 }

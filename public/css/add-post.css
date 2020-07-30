@@ -1,4 +1,5 @@
 div.add-post__container {
+  margin-top: 40px;
   background-color: #6a95f7;
   width: 100%;
   color: white;
@@ -97,18 +98,52 @@ form .input-container .form-control::placeholder {
 form .btn {
   padding: 0.5rem;
   background-color: white;
-  color: #6a95f7;
   border: 1px solid white;
   font-weight: 700;
   font-size: 16px;
-  margin: 70px 0px 10px 0px;
   border-radius: 3px;
   cursor: pointer;
+}
+
+form .btnAddPost {
+  color: #6a95f7;
 }
 
 form .btnAddPost:hover {
   -webkit-animation: btnAddPost;
           animation: btnAddPost;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  outline: none;
+}
+
+form .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 70px;
+}
+
+form .button-container a {
+  text-decoration: none;
+}
+
+form .button-container a .btnDeletePost {
+  margin-left: 30px;
+  padding: 0.42rem;
+  color: red;
+}
+
+form .button-container a .btnDeletePost:hover {
+  -webkit-animation: btnDeletePost;
+          animation: btnDeletePost;
   -webkit-animation-duration: 0.2s;
           animation-duration: 0.2s;
   -webkit-animation-iteration-count: 1;
@@ -125,8 +160,6 @@ form .btnAddPost:hover {
   100% {
     background-color: #6a95f7;
     color: white;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
     border: 1px solid white;
   }
 }
@@ -138,8 +171,36 @@ form .btnAddPost:hover {
   100% {
     background-color: #6a95f7;
     color: white;
+    border: 1px solid white;
+  }
+}
+
+@-webkit-keyframes btnDeletePost {
+  0% {
+    background-color: white;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
     -webkit-transform: scale(1.2);
             transform: scale(1.2);
+    background-color: red;
+    color: white;
+    border: 1px solid white;
+  }
+}
+
+@keyframes btnDeletePost {
+  0% {
+    background-color: white;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    background-color: red;
+    color: white;
     border: 1px solid white;
   }
 }
