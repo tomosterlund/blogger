@@ -9,13 +9,13 @@
         <div class="blog-section__container">
             <div class="colored-container"></div>
             <div class="user-presentation__for-post">
-                <a class="user-image__link" href="/profile/<%= profileUser._id %>">
-                    <div class="userImage__for-post" style="background-image: url('<%= profileUser.imageUrl %>')"></div>
+                <a class="user-image__link" href="/profile/<%= post.postId %>">
+                    <div class="userImage__for-post" style="background-image: url('<%= post.authorImage %>')"></div>
                 </a>
                 <div class="post-details__text-container">
                     <h2><%= post.header %></h2>
                     <h3 class="post__time-stamp"><%= post.timeStamp %></h3>
-                    <p class="post__author-name">by: <%= profileUser.name %></p>
+                    <p class="post__author-name">by: <%= post.postAuthor %></p>
                 </div>
                 <% if (user._id == post.postId) { %>
                     <div class="edit-post__form">
@@ -35,6 +35,41 @@
                 <% if (!user) { %>
                 <hr>
                 <p class="loginToComment">Sign in to comment on this post</p>
+                <% } %>
+                <% if (user) { %>
+                    <hr>
+                    <form class="reply-form" action="/add-reply/<%= post._id %>" method="post">
+                        <input type="hidden" name="threadId" value="<%= post._id %>">
+                        <input type="hidden" name="threadAuthorId" value="<%= profileUser._id %>">
+                        <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                        <textarea name="content" id="reply-content" placeholder="Reply to this post"></textarea>
+                        <button class="btn" type="submit">Submit reply</button>
+                    </form>
+                <% } %>
+                <% if (replies) { %>
+                    <div class="replies-container">
+                        <% for (let reply of replies) { %>
+                            <div class="reply-container">
+                                <div class="reply-author__presentation">
+                                    <div style="background-image: url('<%= reply.replyAuthorImage %>')" class="reply-author__image"></div>
+                                    <div class="text-presentation">
+                                        <h3 class="user-name"><a href="/profile/<%= reply.replyAuthorId %>"><%= reply.replyAuthorName %></a> replied</h3>
+                                        <h4 class="timestamp"><%= reply.timeStamp %></h4>
+                                    </div>
+                                </div>
+                                <div class="reply-content">
+                                    <%= reply.content %>
+                                </div>
+                                <% if (user._id == reply.replyAuthorId) { %>
+                                    <div class="delete-reply__form">
+                                        <a style="margin-top: 3px" href="/delete-reply/<%= reply._id %>">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>    
                 <% } %>
             </div>
         </div>

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
 const Post = require('./../models/Post');
+const Reply = require('./../models/Reply');
 const { body, validationResult } = require('express-validator');
 
 exports.getIndex = (req, res) => {
@@ -58,10 +59,14 @@ exports.getPost = (req, res) => {
         .then(result => {
             User.findById(result.postId)
                 .then(userInDB => {
-                    res.render('public/post-view', {
-                        user: req.session.user || false,
-                        profileUser: userInDB,
-                        post: result
+                    Reply.find({ threadId: result._id })
+                        .then(replies => {
+                            res.render('public/post-view', {
+                                user: req.session.user || false,
+                                profileUser: userInDB,
+                                post: result,
+                                replies: replies
+                        })
                     });
                 })
         })
@@ -81,7 +86,6 @@ exports.postValidation = [
     ];
 
 exports.postRegistration = (req, res) => {
-    console.log('works here');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         let errorsArray = []
@@ -124,6 +128,7 @@ exports.postRegistration = (req, res) => {
             })
         })
     }
+    
 exports.getLatestPosts = (req, res) => {
     Post.find().sort({ createdAt: -1 })
         .then(postsCollection => {

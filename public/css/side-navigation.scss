@@ -16,13 +16,17 @@ $blak: rgb(29, 29, 31);
             color: black;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             padding: 0.3rem;
             border-bottom: 1px solid rgb(190, 184, 184);
             &:hover {
                 color: $orange;
             }
             i {
-                margin: 4px 5px 0px 0px;
+                margin: 0px 5px 0px 0px;
+            }
+            .margin-left__for-li {
+                margin-left: 3.7px;
             }
         }
     }

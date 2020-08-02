@@ -22,15 +22,6 @@ const userSchema = new Schema({
     description: {
         type: String,
         required: false
-    },
-    posts: {
-        items: [
-            {
-                postId: { type: Schema.Types.ObjectId, required: true },
-                timeStamp: { type: String, required: true },
-                header: { type: String, required: true },
-                content: { type: String, required: true }
-            }]
     }
 })
 

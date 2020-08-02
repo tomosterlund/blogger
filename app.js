@@ -40,8 +40,8 @@ const publicRoutes = require('./routes/routes');
 app.use(publicRoutes);
 
 //DB
-dbUri = 'mongodb+srv://tommy:tommy123@cluster0.6ne0u.mongodb.net/blogger?retryWrites=true&w=majority'
-mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true })
+dbUri = 'MongoDB-string goes here'
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
         console.log('connected');
         app.listen(process.env.PORT || 3000)

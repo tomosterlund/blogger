@@ -6,7 +6,7 @@
 <body>
     <%- include('../includes/header.ejs') %>
     <main>
-        <div class="blog-section__container">
+        <div scroll="no" class="blog-section__container">
             <div class="colored-container"></div>
             <div class="user-presentation__container">
                 <div class="userImage" style="background-image: url('<%= profileUser.imageUrl %>')"></div>
@@ -15,7 +15,7 @@
             </div>
             <div class="post-summaries__container">
                 <!-- <h1 class="post-summaries__header">Posts</h1> -->
-                <% if (profileUser.posts.items) { %>
+                <% if (sortedPosts) { %>
                     <% for (let post of sortedPosts) { %>
                         <div class="post-summary__container">
                             <a class="link-to-post" href="/posts/<%= post._id %>">

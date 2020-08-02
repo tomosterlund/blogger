@@ -30,10 +30,18 @@ router.get('/add-post', isAuthenticated, memberController.getAddPost);
 
 router.post('/add-post', isAuthenticated, memberController.postAddPost);
 
-router.get('/edit-post/:postId', memberController.getEditPost);
+router.get('/edit-post/:postId', isAuthenticated, memberController.getEditPost);
 
-router.post('/edit-post/:postId', memberController.postEditPost);
+router.post('/edit-post/:postId', isAuthenticated, memberController.postEditPost);
 
-router.get('/delete-post/:postId', memberController.getDeletePost);
+router.get('/delete-post/:postId', isAuthenticated, memberController.getDeletePost);
+
+router.post('/add-reply/:postId', isAuthenticated, memberController.postAddReply);
+
+router.get('/delete-reply/:replyId', isAuthenticated, memberController.getDeleteReply);
+
+// router.get('/edit-user/:userId', isAuthenticated, memberController.getEditUser);
+
+// router.post('/edit-user/:userId', isAuthenticated, memberController.postEditUser);
 
 module.exports = router;

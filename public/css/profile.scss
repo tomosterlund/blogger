@@ -80,11 +80,14 @@ main {
 .post-summaries__container {
     position: relative;
     margin-top: 100px;
+    margin-bottom: 60px;
     width: 60%;
+    min-height: 40vh;
+    height: auto;
     display: flex;
     justify-content: space-evenly;
+    align-items: flex-start;
     flex-wrap: wrap;
-    // box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
     background-color: white;
     h3 {
@@ -92,14 +95,12 @@ main {
         font-size: 13px;
         text-transform: uppercase;
     }
-    
     .post-summary__container {
         margin: 20px 0px 20px 0px;
         width: 80%;
-        height: auto;
+        height: 80px;
         background-color: rgb(241, 243, 245);
         border-radius: 10px;
-        
         cursor: pointer;
         a.link-to-post {
             margin: 0;
@@ -243,7 +244,7 @@ main {
     display: flex;
     flex-direction: column;
     position: sticky;
-    top: 38%;
+    top: 15.25%;
     margin-left: -73px;
     color: black;
     font-size: 30px;
@@ -255,6 +256,113 @@ main {
         &:hover {
             color: $orange;
             transform: scale(1.1);
+        }
+    }
+}
+
+.reply-form {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0px 30px 0px;
+    textarea {
+        resize: none;
+        width: 100%;
+        height: 175px;
+        font-family: inherit;
+        &:focus {
+            outline: none;
+            border: 1px solid $orange;
+            box-shadow: 0px 1px 3px 0px $orange;
+        }
+    }
+    .btn {
+        padding: 0.5rem;
+        background-color: $blue;
+        border: 1px solid $blue;
+        font-weight: 700;
+        font-size: 16px;
+        margin: 20px 0px 10px 0px;
+        border-radius: 3px;
+        cursor: pointer;
+        color: white;
+        width: 150px;
+        &:hover {
+            animation: btnHover;
+            animation-duration: 0.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            outline: none;
+        }
+    }
+}
+
+@keyframes btnHover {
+    0% {background-color: white;}
+    100% {
+        background-color: white;
+        color: $blue;
+        transform: scale(1.05);
+        border: 1px solid $blue;
+    }
+}
+
+.replies-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    .reply-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        border: 1px solid rgb(235, 229, 229);
+        border-radius: 5px;
+        padding: 1.2rem;
+        .reply-author__presentation {
+            display: flex;
+            align-items: center;
+            .reply-author__image {
+                height: 70px;
+                width: 70px;
+                box-shadow: 0px 1px 4px 0px lightgray;
+                border-radius: 50%;
+                background-size: cover;
+            }
+            .text-presentation {
+                margin-left: 30px;
+                .user-name {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: black;
+                    a {
+                        text-decoration: none;
+                        color: #3366BB;
+                        text-decoration: underline;
+                    }
+                }
+                .timestamp {
+                    color: gray;
+                    font-size: 13px;
+                    margin-top: -20px;
+                }
+            }
+        }
+        .reply-content {
+            margin-top: -30px;
+            font-size: 15px;
+            white-space: pre-line;
+        }
+        .delete-reply__form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            a {
+                text-decoration: none;
+                color: black;
+                &:hover {
+                    color: red;
+                }
+            }
         }
     }
 }

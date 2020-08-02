@@ -1,5 +1,7 @@
+const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
 const Post = require('./../models/Post');
+const Reply = require('./../models/Reply');
 
 exports.getAddPost = (req, res) => {
     res.render('members/add-post', {
@@ -24,30 +26,19 @@ const getDate = () => {
 
 exports.postAddPost = (req, res) => {
     getDate();
-
-    User.findById(req.session.user._id)
-        .then(result => {
-            const newPost = new Post({
-                postId: result._id,
-                timeStamp: fullDate,
-                postAuthor: result.name,
-                authorImage: result.imageUrl,
-                header: req.body.header,
-                content: req.body.content
-            })
-            newPost.save();
-            console.log(newPost);
-            result.name = result.name;
-            result.email = result.email;
-            result.password = result.password;
-            result.imageUrl = result.imageUrl;
-            result.posts.items.push(newPost);
-            result.save()
-                .then(() => {
-                    res.redirect('/add-post');
-                })
-                .catch(error => console.log(error));
+    const newPost = new Post({
+        postId: req.session.user._id,
+        timeStamp: fullDate,
+        postAuthor: req.session.user.name,
+        authorImage: req.session.user.imageUrl,
+        header: req.body.header,
+        content: req.body.content
+    })
+    newPost.save()
+        .then(() => {
+            res.redirect('/add-post');
         })
+        .catch(error => console.log(error));
 }
 
 exports.getEditPost = (req, res) => {
@@ -85,3 +76,54 @@ exports.getDeletePost = (req, res) => {
             res.redirect(`/profile/${req.session.user._id}`);
         })
 }
+
+exports.postAddReply = (req, res) => {
+    getDate();
+    const threadId = req.body.threadId;
+    const threadAuthorId = req.body.threadAuthorId;
+    const replyAuthorId = req.session.user._id;
+    const replyAuthorName = req.session.user.name;
+    const replyAuthorImage = req.session.user.imageUrl;
+    const timeStamp = fullDate;
+    const content = req.body.content;
+    const reply = new Reply({
+        threadId: threadId,
+        threadAuthorId: threadAuthorId,
+        replyAuthorId: replyAuthorId,
+        replyAuthorName: replyAuthorName,
+        replyAuthorImage: replyAuthorImage,
+        timeStamp: timeStamp,
+        content: content,
+    })
+    reply.save()
+        .then(() => {
+            res.redirect(`/posts/${threadId}`);
+        })
+        .catch(error => console.log(error));
+}
+
+exports.getDeleteReply = (req, res) => {
+    const replyId = req.params.replyId;
+    Reply.findById(replyId)
+        .then(replyDoc => {
+            const threadId = replyDoc.threadId;
+            Reply.findByIdAndDelete(replyId)
+                .then(() => {
+                    res.redirect(`/posts/${threadId}`);
+                })
+                .catch(error => console.log(error));
+        })
+}
+
+// exports.getEditUser = (req, res, next) => {
+//     const userId = req.params.userId;
+//     User.findById(userId)
+//         .then(() => {
+//             res.render('members/edit-user')
+//         })
+//         .catch(error => console.log(error));
+// }
+
+// exports.postEditUser = (req, res) => {
+    
+// }
