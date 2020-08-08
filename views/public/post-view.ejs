@@ -10,20 +10,139 @@
             <div class="colored-container"></div>
             <div class="user-presentation__for-post">
                 <a class="user-image__link" href="/profile/<%= post.postId %>">
-                    <div class="userImage__for-post" style="background-image: url('<%= post.authorImage %>')"></div>
+                    <div class="userImage__for-post" style="background-image: url('/images/<%= post.authorImage %>')"></div>
                 </a>
                 <div class="post-details__text-container">
-                    <h2><%= post.header %></h2>
+                    <h2>
+                        <%= post.header %>
+                    </h2>
                     <h3 class="post__time-stamp"><%= post.timeStamp %></h3>
                     <p class="post__author-name">by: <%= post.postAuthor %></p>
+                    <% if (user._id == post.postId) { %>
+                        <div class="edit-post__form">
+                            <a style="margin-top: 3px" href="/edit-post/<%= post._id %>" method="POST">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    <% } %>
                 </div>
-                <% if (user._id == post.postId) { %>
-                    <div class="edit-post__form">
-                        <a style="margin-top: 3px" href="/edit-post/<%= post._id %>" method="POST">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
+                
+
+                <!-- RATING -->
+                <div class="ratings-container">
+                    <p class="postRatingText">Post rating</p>
+                    <% if (user._id != post.postId) { %>
+                        <% if (!votedBefore) { %>
+                            <form action="/rating/<%= post._id %>" method="post">
+                                <% if (rating) { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit"><%= rating.rating %></p>
+                                    </div>
+                                <% } else { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit">0</p>
+                                    </div>
+                                <% } %>
+                                <i class="fa fa-star upvote" aria-hidden="true"></i>
+                                <input id="voteValue" type="hidden" name="voteValue">
+                                <input type="hidden" name="postId" value="<%= post.postId %>">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button id="submitButton" class="ratingButton" type="submit"></button>
+                            </form>
+                        <% } %>
+                    <% } %>
+                        <% if (votedBefore) { %>
+                            <form action="/rating/<%= post._id %>" method="post">
+                                <% if (rating) { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit"><%= rating.rating %></p>
+                                    </div>
+                                <% } else { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit">0</p>
+                                    </div>
+                                <% } %>
+                                <i class="fa fa-star alreadyVoted" aria-hidden="true"></i>
+                                <input id="voteValue" type="hidden" name="voteValue">
+                                <input type="hidden" name="postId" value="<%= post.postId %>">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button id="submitButton" class="ratingButton" type="submit"></button>
+                            </form>
+                        <% } %>
+                        <% if (user._id == post.postId) { %>
+                            <form action="/rating/<%= post._id %>" method="post">
+                                <% if (rating) { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit"><%= rating.rating %></p>
+                                    </div>
+                                <% } else { %>
+                                    <div class="ratingDigitContainer">
+                                        <p class="ratingDigit">0</p>
+                                    </div>
+                                <% } %>
+                                <i class="fa fa-star ownVote" aria-hidden="true"></i>
+                                <input id="voteValue" type="hidden" name="voteValue">
+                                <input type="hidden" name="postId" value="<%= post.postId %>">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button id="submitButton" class="ratingButton" type="submit"></button>
+                            </form>
+                        <% } %>
+                </div>
+                <!-- RATING -->
+                
+
+                <!-- FOLLOWING CONTAINER, BUTTON & NUMBER -->
+                <% if (!user) { %>
+                    <div class="follow-button__container">
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
                     </div>
                 <% } %>
+                <% if (user && profileUser._id != user._id && !doesFollow) { %>
+                    <div class="follow-button__container">
+                        <form action="/follow-p/<%= profileUser._id %>" method="POST">
+                            <input type="hidden" name="postId" value="<%= post._id %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="followButton" type="submit">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                Follow
+                            </button>
+                        </form>
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <% if (user && profileUser._id != user._id && doesFollow) { %>
+                    <div class="follow-button__container">
+                        <form action="/unfollow-p/<%= profileUser._id %>" method="POST">
+                            <input type="hidden" name="postId" value="<%= post._id %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="followButton" type="submit">
+                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                Unfollow
+                            </button>
+                        </form>
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <% if (user && profileUser._id == user._id) { %>
+                    <div class="follow-button__container">
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <!-- FOLLOWING CONTAINER OVER -->
+
+
             </div>
             <div class="post-content__container">
                 <div class="social-icons__container">
@@ -51,7 +170,7 @@
                         <% for (let reply of replies) { %>
                             <div class="reply-container">
                                 <div class="reply-author__presentation">
-                                    <div style="background-image: url('<%= reply.replyAuthorImage %>')" class="reply-author__image"></div>
+                                    <div style="background-image: url('/images/<%= reply.replyAuthorImage %>')" class="reply-author__image"></div>
                                     <div class="text-presentation">
                                         <h3 class="user-name"><a href="/profile/<%= reply.replyAuthorId %>"><%= reply.replyAuthorName %></a> replied</h3>
                                         <h4 class="timestamp"><%= reply.timeStamp %></h4>
@@ -77,17 +196,6 @@
             <%- include('../includes/side-navigation.ejs') %>
         </div>
     </main>
+    <script src="/js/post-rating.js"></script>
 </body>
 </html>
-
-<script>
-    // let hiddenStuff = document.querySelector('.ql-tooltip');
-    // hiddenStuff.style.display = 'none';
-    // let hiddenStuffTwo = document.querySelector('.ql-clipboard');
-    // hiddenStuffTwo.style.display = 'none';
-    // let qlEditor = document.querySelector('.ql-editor');
-    // qlEditor.setAttribute('contenteditable', 'false');
-    // hiddenStuffTwo.setAttribute('contenteditable', 'false');
-    // qlEditor.classList.remove('ql-editor');
-    // hiddenStuffTwo.classList.remove('ql-clipboard');
-</script>

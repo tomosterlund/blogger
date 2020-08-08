@@ -5,7 +5,7 @@
     <%- include('../includes/header.ejs') %>
     <main>
         <div class="registration-page__container">
-            <form action="/edit-user/<%= user._id %>" method="post">
+            <form action="/edit-user/<%= user._id %>" method="POST" enctype="multipart/form-data">
                 <h2>Edit your details</h2>
                 <div class="input-container">
                     <label for="name">Name</label>
@@ -15,17 +15,17 @@
                     <label for="email">E-mail</label>
                     <input class="form-control" type="email" name="email" placeholder="Enter your email" value="<%= user.email %>">
                 </div>
-                <!-- <div class="input-container">
+                <div class="input-container">
                     <label for="password">Change Password</label>
-                    <input class="form-control" type="password" name="password" placeholder="Choose a password">
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Choose a password">
                 </div>
                 <div class="input-container">
                     <label for="pwconfirm">Confirm new password</label>
-                    <input class="form-control" type="password" name="pwconfirm" placeholder="Enter your password again">
-                </div> -->
+                    <input id="pwconfirm" class="form-control" type="password" name="pwconfirm" placeholder="Enter your password again">
+                </div>
                 <div class="input-container">
-                    <label for="imageUrl">Image URL</label>
-                    <input class="form-control" type="text" name="imageUrl" placeholder="Enter an image-URL here" value="<%= user.imageUrl %>">
+                    <label for="imageUrl">Image</label>
+                    <input class="form-control" type="file" name="image" id="image">
                 </div>
                 <div class="input-container">
                     <label for="name">Description</label>
@@ -34,10 +34,13 @@
                     </textarea>
                 </div>
                 <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-                <button class="btnRegistration btn" type="submit">Save details</button>
+                <button id="realSubmitButton" class="btnRegistration btn" type="submit">Save details</button>
+                <div id="fakeSubmitButton" class="btnRegistration btn">Save details</div>
             </form>
         </div>
     </main>
+    <script src="/js/pwconfirm.js"></script>
+    <script src="/js/edit-user.js"></script>
     <%- include('../includes/scripts.ejs') %>
 </body>
 </html>

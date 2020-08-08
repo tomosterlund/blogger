@@ -1,13 +1,17 @@
 <nav class="side-nav">
     <ul>
+        <a href="/feed/<%= user._id %>">
+            <i class="fa fa-feed margin-left__for-li" aria-hidden="true"></i>
+            <li>Feed</li>
+        </a>
         <a href="/latest-posts">
             <i class="fa fa-search margin-left__for-li" aria-hidden="true"></i>
             <li>Find users</li>
         </a>
-        <a href="/latest-posts">
+        <!-- <a href="/popular-posts">
             <i class="fa fa-star-o margin-left__for-li" aria-hidden="true"></i>
             <li>Popular posts</li>
-        </a>
+        </a> -->
         <a href="/latest-posts">
             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
             <li>Latest posts</li>

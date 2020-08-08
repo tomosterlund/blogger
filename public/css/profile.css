@@ -80,6 +80,71 @@ main {
   margin: 10px 0px 10px 0px;
 }
 
+.user-presentation__container .follow-button__container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.user-presentation__container .follow-button__container .followButton {
+  border: 1px solid #ff9769;
+  color: white;
+  background-color: #ff9769;
+  border-radius: 3px;
+  padding: 0.2rem;
+  font-weight: 600;
+  font-size: 15px;
+  margin: 3px 3px 0px 0px;
+  cursor: pointer;
+  outline: none;
+}
+
+.user-presentation__container .follow-button__container .followButton:hover {
+  -webkit-animation: followButtonHover;
+          animation: followButtonHover;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.user-presentation__container .follow-button__container .numOfFollowers__container {
+  font-size: 12px;
+  color: gray;
+  text-transform: uppercase;
+  margin: 3px 3px 0px 0px;
+}
+
+@-webkit-keyframes followButtonHover {
+  100% {
+    color: #ff9769;
+    background-color: white;
+    -webkit-transform: scale(1.07);
+            transform: scale(1.07);
+  }
+}
+
+@keyframes followButtonHover {
+  100% {
+    color: #ff9769;
+    background-color: white;
+    -webkit-transform: scale(1.07);
+            transform: scale(1.07);
+  }
+}
+
 .post-summaries__header {
   font-size: 18px;
   border-bottom: 3px solid #ff9769;
@@ -233,9 +298,6 @@ main {
 }
 
 .user-presentation__for-post .edit-post__form {
-  position: absolute;
-  top: 0;
-  right: 0;
   text-decoration: none;
   color: black;
   display: -webkit-box;
@@ -249,13 +311,10 @@ main {
 .user-presentation__for-post .edit-post__form a {
   color: black;
   text-decoration: none;
-  padding: 0;
-  margin: 0;
 }
 
 .user-presentation__for-post .edit-post__form a i {
   padding: 0;
-  margin: 0.3rem;
   font-size: 20px;
   cursor: pointer;
 }
@@ -270,6 +329,53 @@ main {
   border: 0px;
   outline: none;
   background-color: transparent;
+}
+
+.user-presentation__for-post .follow-button__container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.user-presentation__for-post .follow-button__container .followButton {
+  border: 1px solid #ff9769;
+  color: white;
+  background-color: #ff9769;
+  border-radius: 3px;
+  padding: 0.2rem;
+  font-weight: 600;
+  font-size: 15px;
+  margin: 3px 3px 0px 0px;
+  cursor: pointer;
+  outline: none;
+}
+
+.user-presentation__for-post .follow-button__container .followButton:hover {
+  -webkit-animation: followButtonHover;
+          animation: followButtonHover;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.user-presentation__for-post .follow-button__container .numOfFollowers__container {
+  font-size: 12px;
+  color: gray;
+  text-transform: uppercase;
+  margin: 3px 3px 0px 0px;
 }
 
 .post-content__container {
@@ -496,5 +602,121 @@ main {
 
 .replies-container .reply-container .delete-reply__form a:hover {
   color: red;
+}
+
+.ratings-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ratings-container form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #1d1d1f;
+  border-radius: 4px;
+}
+
+.ratings-container p {
+  padding: 0;
+  margin: 0;
+}
+
+.ratings-container .postRatingText {
+  font-size: 12px;
+}
+
+.ratings-container .ratingDigit {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff9769;
+  margin: 0px 0px 0px 10px;
+}
+
+.ratings-container i {
+  font-size: 18px;
+  margin: 0px 8px 0px 8px;
+  color: #ff9769;
+  cursor: pointer;
+}
+
+.ratings-container i.upvote:hover {
+  color: #ff9769;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.ratings-container i.upvote:hover::after {
+  position: absolute;
+  bottom: 20px;
+  left: -10px;
+  content: 'Show your appreciation of this post';
+  color: white;
+  background-color: #6a95f7;
+  font-size: 15px;
+  padding: 0.3rem;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.ratings-container i.alreadyVoted:hover {
+  color: #ff9769;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.ratings-container i.alreadyVoted:hover::after {
+  position: absolute;
+  bottom: 20px;
+  left: -10px;
+  content: 'You have already rated this post';
+  color: white;
+  background-color: #6a95f7;
+  width: 150px;
+  font-size: 15px;
+  padding: 0.3rem;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.ratings-container i.ownVote:hover {
+  color: #ff9769;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.ratings-container i.ownVote:hover::after {
+  position: absolute;
+  bottom: 20px;
+  left: -10px;
+  content: "You can't rate your own post";
+  width: 150px;
+  color: white;
+  background-color: #6a95f7;
+  font-size: 15px;
+  padding: 0.3rem;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.ratings-container #submitButton {
+  display: none;
 }
 /*# sourceMappingURL=profile.css.map */

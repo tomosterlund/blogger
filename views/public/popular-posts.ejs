@@ -1,0 +1,34 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/popular-posts.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="popular-posts__container">
+                <% for (let rating of ratings) { %>
+                    <div>
+                        <%= rating.rating %>
+                    </div>
+                    <% for (let post of topPosts) { %>
+                        <% if (rating.postId == post._id) { %>
+                            <%= post.header %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+                <%= topPosts[0]._id %>
+                <div>
+                    <%= ratings[2].postId %>
+                </div>
+                
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

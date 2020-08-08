@@ -40,8 +40,20 @@ router.post('/add-reply/:postId', isAuthenticated, memberController.postAddReply
 
 router.get('/delete-reply/:replyId', isAuthenticated, memberController.getDeleteReply);
 
-// router.get('/edit-user/:userId', isAuthenticated, memberController.getEditUser);
+router.get('/edit-user/:userId', isAuthenticated, memberController.getEditUser);
 
-// router.post('/edit-user/:userId', isAuthenticated, memberController.postEditUser);
+router.post('/edit-user/:userId', isAuthenticated, memberController.postEditUser);
+
+router.post('/rating/:postId', isAuthenticated, memberController.postPostRating);
+
+router.post('/follow/:profileId', isAuthenticated, memberController.postFollow);
+
+router.post('/unfollow/:profileId', isAuthenticated, memberController.postUnfollow);
+
+router.post('/follow-p/:profileId', isAuthenticated, memberController.postFollowThruPost);
+
+router.post('/unfollow-p/:profileId', isAuthenticated, memberController.postUnfollowThruPost);
+
+router.get('/feed/:userId', isAuthenticated, memberController.getFeed);
 
 module.exports = router;

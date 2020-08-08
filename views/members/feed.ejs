@@ -1,0 +1,38 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/feed.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <% for (let post of posts) { %>
+                <a class="post-link" href="/posts/<%= post._id %>">
+                    <div class="blog-post__container">
+                        <div class="author-presentation__container">
+                            <div class="header-block">
+                                <div class="authorImage" style="background-image:url('/images/<%= post.authorImage %>')"></div>
+                            </div>
+                            <h4><%= post.postAuthor %></h4>
+                            <h3 class="timestamp"><%= post.timeStamp %></h3>
+                        </div>
+                        <div class="post-body__container">
+                            <div class="post-header"><%= post.header %></div>
+                            <div class="post-content">
+                                <%- post.content %>
+                            </div>
+                            <hr>
+                            <p><i>Click on this post to comment on it</i></p>
+                        </div>
+                    </div>
+                </a>
+            <% } %>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

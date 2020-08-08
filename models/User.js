@@ -22,6 +22,12 @@ const userSchema = new Schema({
     description: {
         type: String,
         required: false
+    },
+    followers: {
+        type: Array
+    },
+    following: {
+        type: Array
     }
 })
 

@@ -2,7 +2,16 @@ const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
 const Post = require('./../models/Post');
 const Reply = require('./../models/Reply');
+const Rating = require('./../models/PostRating');
 const { body, validationResult } = require('express-validator');
+const { post } = require('../routes/routes');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        api_key: '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'
+    }
+}))
 
 exports.getIndex = (req, res) => {
     res.render('public/index', {
@@ -43,11 +52,20 @@ exports.postLogout = (req, res) => {
 exports.getProfile = (req, res) => {
     User.findById(req.params.profileId)
         .then(result => {
+            let doesFollow = false;
+            if (result.followers && req.session.user) {
+                for (let follower of result.followers) {
+                    if (follower === req.session.user._id) {
+                        doesFollow = true;
+                    }
+                }
+            }
             Post.find({ postId: result._id }).sort({ createdAt: -1 })
                 .then(posts => {
                     res.render('public/profile.ejs', {
                         profileUser: result,
                         sortedPosts: posts,
+                        doesFollow: doesFollow
                     })
                 })
         })
@@ -57,17 +75,37 @@ exports.getProfile = (req, res) => {
 exports.getPost = (req, res) => {
     Post.findById(req.params.postId)
         .then(result => {
-            User.findById(result.postId)
-                .then(userInDB => {
-                    Reply.find({ threadId: result._id })
-                        .then(replies => {
-                            res.render('public/post-view', {
-                                user: req.session.user || false,
-                                profileUser: userInDB,
-                                post: result,
-                                replies: replies
+            Rating.findOne({postId: result._id})
+                .then(postRatingDoc => {
+                    let votedBefore = false;
+                    if (postRatingDoc) {
+                        for (let user of postRatingDoc.votingUsers) {
+                            user === req.session.user._id ? votedBefore = true : votedBefore = false;
+                        }
+                    }
+                    User.findById(result.postId)
+                        .then(userInDB => {
+                            let doesFollow = false;
+                            if (userInDB.followers && req.session.user) {
+                                for (let follower of userInDB.followers) {
+                                    if (follower === req.session.user._id) {
+                                        doesFollow = true;
+                                    }
+                                }
+                            }
+                            Reply.find({ threadId: result._id })
+                                .then(replies => {
+                                    res.render('public/post-view', {
+                                        user: req.session.user || false,
+                                        profileUser: userInDB,
+                                        post: result,
+                                        replies: replies,
+                                        rating: postRatingDoc,
+                                        votedBefore: votedBefore,
+                                        doesFollow: doesFollow
+                                })
+                            });
                         })
-                    });
                 })
         })
 }
@@ -93,7 +131,7 @@ exports.postRegistration = (req, res) => {
             let param = error.param;
             let msgOutput = '';
             if(param === 'email') {msgOutput = 'Invalid e-mail address';}
-            else if (param === 'password') {msgOutput = 'Password needs to contain at least 5 characters'}
+            else if (param === 'password') {msgOutput = 'Password needs to contain at least 5 characters, and the passwords need to match'}
             else if (param === 'name') {msgOutput = 'Name field is mandatory'}
             errorsArray.push(msgOutput);
         }
@@ -113,16 +151,25 @@ exports.postRegistration = (req, res) => {
             const password = req.body.password;
             return bcrypt.hash(password, 12)
             .then(encryptedPassword => {
+                const image = req.file;
+                const imageUrl = image.filename;
                 const user = new User({
                     name: req.body.name,
                     email: req.body.email,
                     password: encryptedPassword,
-                    imageUrl: req.body.imageUrl || 'https://freesvg.org/img/abstract-user-flat-3.png',
+                    imageUrl: imageUrl || 'https://freesvg.org/img/abstract-user-flat-3.png',
                     description: req.body.description
                 })
                 user.save()
                     .then(() => {
-                        res.redirect('/login');
+                        return res.redirect('/login');
+                        // transporter.sendMail({
+                        //     to: req.body.email,
+                        //     from: 'tom.osterlund1@gmail.com',
+                        //     subject: 'Signup succeeded',
+                        //     html: '<h1>You successfully signed up with blogger!</h1>'
+                        // })
+
                     })
                     .catch(error => console.log(error));
             })
@@ -132,8 +179,16 @@ exports.postRegistration = (req, res) => {
 exports.getLatestPosts = (req, res) => {
     Post.find().sort({ createdAt: -1 })
         .then(postsCollection => {
+            let latestPosts = [];
+            if (postsCollection.length < 20) {
+                latestPosts = postsCollection;
+            } else {
+                for (let i = 0; i < 20; i++) {
+                    latestPosts.push(postsCollection[i]);
+                }
+            }
             res.render('public/latest-posts', {
-                posts: postsCollection
+                posts: latestPosts
             });
         })
         .catch(error => console.log(error));
