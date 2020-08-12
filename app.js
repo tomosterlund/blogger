@@ -62,7 +62,7 @@ const publicRoutes = require('./routes/routes');
 app.use(publicRoutes);
 
 //DB
-dbUri = 'MongoDB string goes here'
+dbUri = 'mongoDB connection-string goes here'
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
         console.log('connected');

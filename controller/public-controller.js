@@ -193,3 +193,14 @@ exports.getLatestPosts = (req, res) => {
         })
         .catch(error => console.log(error));
 }
+
+exports.postSearch = (req, res) => {
+    const searchKey = req.body.search;
+    User.find({ name: {$regex: searchKey, $options: 'i'} }).lean()
+        .then(usersDoc => {
+            res.render('public/search-results', {
+                results: usersDoc,
+                searchKey: searchKey                
+            })
+        })
+}

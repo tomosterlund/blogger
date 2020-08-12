@@ -1,24 +1,32 @@
 <nav class="side-nav">
+    <% if (user) { %>
+        <div class="authed-user__container">
+            <div class="authed-user__text">
+                You are signed in as:
+            </div>
+            <div class="user-image" style="background-image: url('/images/<%= user.imageUrl %>')"></div>
+        </div>
+    <% } %>
     <ul>
-        <a href="/feed/<%= user._id %>">
+        <a href="/feed">
             <i class="fa fa-feed margin-left__for-li" aria-hidden="true"></i>
             <li>Feed</li>
         </a>
-        <a href="/latest-posts">
+        <a href="/search">
             <i class="fa fa-search margin-left__for-li" aria-hidden="true"></i>
             <li>Find users</li>
         </a>
-        <!-- <a href="/popular-posts">
-            <i class="fa fa-star-o margin-left__for-li" aria-hidden="true"></i>
-            <li>Popular posts</li>
-        </a> -->
         <a href="/latest-posts">
             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
             <li>Latest posts</li>
         </a>
-        <a href="">
-            <i class="fa fa-pencil margin-left__for-li" aria-hidden="true"></i>
-            <li>My activity</li>
+        <a href="/followers/<%= user._id %>">
+            <i class="fa fa-users margin-left__for-li" aria-hidden="true"></i>
+            <li>My followers</li>
+        </a>
+        <a href="/subscriptions/<%= user._id %>">
+            <i class="fa fa-star-o margin-left__for-li" aria-hidden="true"></i>
+            <li>Subscriptions</li>
         </a>
         <a href="/edit-user/<%= user._id %>">
             <i class="fa fa-cog margin-left__for-li" aria-hidden="true"></i>

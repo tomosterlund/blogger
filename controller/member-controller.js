@@ -351,3 +351,49 @@ exports.getFeed = (req, res) => {
                 })
         })
 }
+
+exports.getSubscriptions = (req, res) => {
+    const userId = req.params.userId;
+    User.findById(userId).lean()
+        .then(userDoc => {
+            let subscriptionsIds = userDoc.following;
+            User.find({_id: [...subscriptionsIds]}).lean()
+                .then(subscriptionsDoc => {
+                    Post.find({postId: [...subscriptionsIds]}).sort({ createdAt: -1 }).lean()
+                        .then(postsFromSubs => {
+                            let usersWithPosts = [];
+                            for (let user of subscriptionsDoc) {
+                                let userId = String(user._id)
+                                let userWithPosts = { user: user, posts: [] };
+                                for (let post of postsFromSubs) {
+                                    let postId = String(post.postId)
+                                    if (userId === postId) {
+                                        userWithPosts.posts.push(post);
+                                    }
+                                }
+                                usersWithPosts.push(userWithPosts);
+                            }
+                            console.log(usersWithPosts)
+                            res.render('members/subscriptions', {
+                                subsWithPosts: usersWithPosts
+                            })
+                        })
+                })
+        })
+}
+
+exports.getFollowers = (req, res) => {
+    const userId = req.params.userId;
+    User.findById(userId).lean()
+        .then(userDoc => {
+            let followersIds = userDoc.followers;
+            User.find({_id: [...followersIds]}).lean()
+                .then(followersDoc => {
+                    console.log(followersDoc);
+                    res.render('members/followers', {
+                        followers: followersDoc
+                    })
+                })
+                .catch(err => console.log(err));
+})
+}

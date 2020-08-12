@@ -36,12 +36,61 @@ header {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-header h1 {
+header .left-box__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .left-box__header h1 {
   padding: 0;
   margin: 0px 0px 0px 20px;
   color: #1d1d1f;
   font-size: 20px;
   font-family: 'Courier New', Courier, monospace;
+}
+
+header .left-box__header input {
+  padding: 0.3rem;
+  border-radius: 3px;
+  height: 30px;
+  width: 250px;
+  margin: 0px 0px 0px 20px;
+  border: 2px solid #1d1d1f;
+}
+
+header .left-box__header input:focus {
+  -webkit-box-shadow: 0px 4px 8px 0px lightgray;
+          box-shadow: 0px 4px 8px 0px lightgray;
+  outline: none;
+}
+
+header .left-box__header button {
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+}
+
+header .left-box__header #searchButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 30px;
+  padding: 0.3rem;
+  font-size: 16px;
+}
+
+header .left-box__header #searchButton:hover {
+  color: #6a95f7;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  cursor: pointer;
 }
 
 header ul {
@@ -116,5 +165,35 @@ header ul a:hover::after {
     color: #6a95f7;
     height: 3px;
   }
+}
+
+.authed-user__container {
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.authed-user__container .authed-user__text {
+  font-weight: 600;
+  margin: 10px 0px 0px 0px;
+}
+
+.authed-user__container .user-image {
+  margin: 10px 0px 0px 0px;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-size: cover;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,58 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/subs.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="blog-posts__container">
+                <div class="subs-container">
+                    <h1>People that you are following</h1>
+                    <% for (let sub of subsWithPosts) { %>
+                        <a class="profile-link" href="/profile/<%= sub.user._id %>">
+                            <div class="sub-container">
+                                <div class="sub-pres__container">
+                                    <div class="image-container" style="background-image: url('/images/<%= sub.user.imageUrl %>')"></div>
+                                </div>
+                                <h2><%= sub.user.name %></h2>
+                                <% if(sub.posts[0]) { %>
+                                    <div class="latest-post__container">
+                                        <h3>Latest post:</h3>
+                                        <div class="post-title">
+                                            <%= sub.posts[0].header %>
+                                        </div>
+                                        <div class="post-timestamp">
+                                            <%= sub.posts[0].timeStamp %>
+                                        </div>
+                                    </div>
+                                <% } else { %>
+                                    <div class="latest-post__container" style="display: flex; align-items: center; font-size: 13.5px;">
+                                        <i>This person has not posted anything yet</i>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+    <script>
+        const postTitle = document.querySelector('.post-title');
+        let trimmedSent = postTitle.textContent.trim();
+        if (trimmedSent.length > 20) {
+            let sentenceArr = trimmedSent.split('');
+            sentenceArr.splice(19, sentenceArr.length, '...');
+            console.log(sentenceArr.join(''));
+            postTitle.textContent = sentenceArr.join('');           
+        }
+
+    </script>
+</body>
+</html>

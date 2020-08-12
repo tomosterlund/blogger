@@ -20,6 +20,8 @@ router.get('/posts/:postId', publicController.getPost);
 
 router.get('/latest-posts', publicController.getLatestPosts);
 
+router.post('/search', publicController.postSearch);
+
 //REGISTRATION
 router.get('/registration', publicController.getRegistration);
 
@@ -54,6 +56,10 @@ router.post('/follow-p/:profileId', isAuthenticated, memberController.postFollow
 
 router.post('/unfollow-p/:profileId', isAuthenticated, memberController.postUnfollowThruPost);
 
-router.get('/feed/:userId', isAuthenticated, memberController.getFeed);
+router.get('/feed/', isAuthenticated, memberController.getFeed);
+
+router.get('/subscriptions/:userId', isAuthenticated, memberController.getSubscriptions);
+
+router.get('/followers/:userId', isAuthenticated, memberController.getFollowers);
 
 module.exports = router;

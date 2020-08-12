@@ -1,5 +1,14 @@
 <header>
-    <h1>blogger</h1>
+    <div class="left-box__header">
+        <h1>blogger</h1>
+        <form action="/search" method="post" style="display: flex; align-items: center;">
+            <input type="search" name="search" id="search" placeholder="Search for user here">
+            <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+            <button type="submit">
+                <i id="searchButton" class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
     <nav>
         <ul>
             <% if (!user) { %>
