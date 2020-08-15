@@ -1,0 +1,69 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/add-post.css">
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="add-post__container">
+            <form action="/edit-post/<%= post._id %>" method="post">
+                <h2>Edit post</h2>
+                <input type="hidden" id="editableContent" value="<%= content %>">
+                <div class="input-container">
+                    <label for="header">Header</label>
+                    <input class="form-control" type="text" name="header" placeholder="Type your header" value="<%= header %>">
+                </div>
+                <div class="input-container">
+                    <label for="content">Content</label>
+                    <div class="editor-container">
+                        <div id="editor">
+                            <div id="editorDiv"></div>
+                        </div>
+                    </div>
+                </div>
+                <input id="hiddenContentInput" type="hidden" name="content">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="button-container">
+                    <button class="btn btnAddPost" type="submit">Save changes</button>
+                    <a href="/delete-post/<%= post._id %>">
+                        <span class="btn btnDeletePost"  method="POST">
+                            Delete post
+                        </span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        const editableContent = document.getElementById('editableContent').value;
+        let editorDiv = document.getElementById('editorDiv');
+        editorDiv.innerHTML = editableContent;
+        
+        let toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'link'],
+            [{'header': 1}, {'header': 2}],
+            [{'list': 'ordered'}, {'list': 'bullet'}],
+            [{'indent': '-1'}, {'indent': '+1'}]
+        ]
+        
+        var quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: toolbarOptions
+        }
+        });
+    
+        let submitButton = document.querySelector('.btnAddPost');
+        submitButton.addEventListener('click', () => {
+            let editorHTML = document.querySelector('.ql-editor').innerHTML;
+            let hiddenContentInput = document.getElementById('hiddenContentInput');
+            hiddenContentInput.value = editorHTML;
+        })
+
+
+    </script>
+</body>
+</html>

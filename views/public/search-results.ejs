@@ -1,0 +1,50 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/side-navigation.css">
+<link rel="stylesheet" href="/css/subs.css">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="subs-container">
+                <h1>Results for "<%= searchKey %>"</h1>
+                <% for (let result of results) { %>
+                    <a class="profile-link" href="/profile/<%= result._id %>">
+                        <div class="sub-container">
+                            <div class="sub-pres__container">
+                                <div class="image-container" style="background-image: url('/images/<%= result.imageUrl %>')"></div>
+                            </div>
+                            <h2><%= result.name %></h2>
+                            <% if(result.followers) { %>
+                                <div style="display: flex; align-items: center;" class="latest-post__container">
+                                    <h3><i class="fa fa-users margin-left__for-li" aria-hidden="true"></i><%= result.followers.length %></h3>
+                                </div>
+                            <% } else { %>
+                                <div style="display: flex; align-items: center;" class="latest-post__container" style="display: flex; align-items: center; font-size: 13.5px;">
+                                    <h3><i class="fa fa-users margin-left__for-li" aria-hidden="true"></i> 0</h3>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                    </a>
+                <% } %>
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+    <script>
+        const postTitle = document.querySelector('.post-title');
+        let trimmedSent = postTitle.textContent.trim();
+        if (trimmedSent.length > 20) {
+            let sentenceArr = trimmedSent.split('');
+            sentenceArr.splice(19, sentenceArr.length, '...');
+            console.log(sentenceArr.join(''));
+            postTitle.textContent = sentenceArr.join('');           
+        }
+
+    </script>
+</body>
+</html>

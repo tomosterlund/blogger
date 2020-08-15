@@ -1,0 +1,33 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/popular-posts.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="popular-posts__container">
+                <% for (let rating of ratings) { %>
+                    <div>
+                        <%= rating.rating %>
+                    </div>
+                    <% for (let post of topPosts) { %>
+                        <% if (rating.postId == post._id) { %>
+                            <%= post.header %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+                <%= topPosts[0]._id %>
+                <div>
+                    <%= ratings[2].postId %>
+                </div>
+                
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

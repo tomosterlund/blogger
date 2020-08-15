@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/subs.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div class="blog-section__container">
+            <div class="subs-container">
+                <h1>My followers</h1>
+                <% if (followers) { %>
+                    <% for (let u of followers) { %>
+                        <a class="profile-link" href="/profile/<%= u._id %>">
+                            <div class="sub-container">
+                                <div class="sub-pres__container">
+                                    <div class="image-container" style="background-image: url('/images/<%= u.imageUrl %>')"></div>
+                                </div>
+                                <h2><%= u.name %></h2>
+                            </div>
+                        </a>
+                    <% } %>
+                <% } else { %>
+                    <div class="sub-container">
+                        <div>You don't have any followers yet.</div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

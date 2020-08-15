@@ -1,0 +1,83 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/side-navigation.css">
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <main>
+        <div scroll="no" class="blog-section__container">
+            <div class="colored-container"></div>
+            <div class="user-presentation__container">
+                <div class="userImage" style="background-image: url('/images/<%= profileUser.imageUrl %>')"></div>
+                <h2><%= profileUser.name %></h2>
+                <p><%= profileUser.description %></p>
+                <% if (!user) { %>
+                    <div class="follow-button__container">
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <% if (user && profileUser._id != user._id && !doesFollow) { %>
+                    <div class="follow-button__container">
+                        <form action="/follow/<%= profileUser._id %>" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="followButton" type="submit">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                Follow
+                            </button>
+                        </form>
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <% if (user && profileUser._id != user._id && doesFollow) { %>
+                    <div class="follow-button__container">
+                        <form action="/unfollow/<%= profileUser._id %>" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="followButton" type="submit">
+                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                Unfollow
+                            </button>
+                        </form>
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+                <% if (user && profileUser._id == user._id) { %>
+                    <div class="follow-button__container">
+                        <div class="numOfFollowers__container">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <%= profileUser.followers.length %> followers
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="post-summaries__container">
+                <!-- <h1 class="post-summaries__header">Posts</h1> -->
+                <% if (sortedPosts) { %>
+                    <% for (let post of sortedPosts) { %>
+                        <div class="post-summary__container">
+                            <a class="link-to-post" href="/posts/<%= post._id %>">
+                                <h3><%= post.timeStamp %></h3>
+                                <div class="highlight-container">
+                                    <p><%= post.header %></p>
+                                </div>
+                            </a>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+        <div class="side-navigation__container">
+            <%- include('../includes/side-navigation.ejs') %>
+        </div>
+    </main>
+    <%- include('../includes/scripts.ejs') %>
+</body>
+</html>

@@ -1,0 +1,154 @@
+$lightPurple: rgb(159, 166, 255);
+$purple: #514096;
+$pink: rgb(255, 129, 155);
+$orange: rgb(255, 151, 105);
+$blue: rgb(106, 149, 247);
+$blak: rgb(29, 29, 31);
+
+div.add-post__container {
+    margin-top: 40px;
+    background-color: $blue;
+    width: 100%;
+    color: white;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active  {
+        color: white;
+        -webkit-text-fill-color: white !important;
+        -webkit-box-shadow: 0 0 0 30px $blue inset !important;
+        -webkit-text-: white inset !important;
+        -webkit-background-color: $blue;
+    }
+    form {
+        background-color: transparent;
+        display: flex;
+        color: white;
+        flex-direction: column;
+        align-items: center;
+        width: 450px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        h2 {
+            margin: 10px 0px 0px 0px;
+            padding: 0;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            label {
+                margin: 5px 0px 3px 0px;
+                color: transparent;
+            }
+            .form-control {
+                background-color: $blue;
+                color: white;
+                font-size: 15px;
+                padding: 0.5rem;
+                border-top: 0px;
+                border-right: 0px;
+                border-left: 0px;
+                border-bottom: 1px solid black;
+                outline: none;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                &::placeholder {
+                    color: snow;
+                }
+            }
+        }
+        .btn {
+            padding: 0.5rem;
+            background-color: white;
+            border: 1px solid white;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btnAddPost {
+            color: $blue;
+            &:hover {
+                animation: btnAddPost;
+                animation-duration: 0.2s;
+                animation-iteration-count: 1;
+                animation-fill-mode: forwards;
+                outline: none;
+            }
+        }
+        .button-container {
+            display: flex;
+            align-items: center;
+            margin-top: 70px;
+            a {
+                text-decoration: none;
+                .btnDeletePost {
+                    margin-left: 30px;
+                    padding: 0.42rem;
+                    color: red;
+                    &:hover {
+                        animation: btnDeletePost;
+                        animation-duration: 0.2s;
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
+                        outline: none;
+                    }
+                }
+            }
+        }
+    
+    
+    }
+}
+
+@keyframes btnAddPost {
+    0% {background-color: white;}
+    100% {
+        background-color: $blue;
+        color: white;
+        // transform: scale(1.2);
+        border: 1px solid white;
+    }
+}
+
+@keyframes btnDeletePost {
+    0% {background-color: white; transform: scale(1.0);}
+    100% {
+        transform: scale(1.2);
+        background-color: red;
+        color: white;
+        border: 1px solid white;
+    }
+}
+
+
+#editor {
+    background-color: white;
+    color: black;
+}
+
+.editor-container {
+    background-color: white;
+    width: 450px;
+    height: 200px;
+}
+
+@media (max-width: 850px) {
+    div.add-post__container {
+        margin-top: 0;
+        form {
+            max-width: 340px;
+        }
+        .editor-container {
+            width: 100%;
+        }
+    }
+    .button-container {
+        margin-top: 120px;
+        position: static;
+    }
+}
